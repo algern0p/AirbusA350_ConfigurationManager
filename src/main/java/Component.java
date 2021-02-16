@@ -1,15 +1,9 @@
 public class Component {
-    private ComponentGroup Group;
     private String Name;
     private int Quantity;
 
-    public  Component(String name, ComponentGroup group){
-        this.Group = group;
+    public  Component(String name){
         this.Name = name;
-    }
-
-    public ComponentGroup getGroup() {
-        return Group;
     }
 
     public String getName() {
