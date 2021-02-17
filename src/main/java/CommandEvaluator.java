@@ -23,7 +23,7 @@ public class CommandEvaluator {
 
         String[] extracted = getRegexGroups(showComponentsRegex, command);
 
-        return extracted == null ? extracted : getRegexGroups(addQuantityRegex, command);
+        return extracted == null ? getRegexGroups(addQuantityRegex, command) : extracted;
     }
 
     private static String[] getRegexGroups(String regex, String command) {
@@ -31,7 +31,7 @@ public class CommandEvaluator {
         Matcher matcher = pattern.matcher(command);
         if (matcher.find()) {
             List<String> groups = new ArrayList<>();
-            for (int i = 0; i < matcher.groupCount() + 1; i++) {
+            for (int i = 1; i < matcher.groupCount() + 1; i++) {
                 groups.add(matcher.group(i));
             }
             return groups.toArray(new String[0]);
