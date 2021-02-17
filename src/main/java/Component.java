@@ -1,5 +1,5 @@
 public class Component {
-    private String Name;
+    private final String Name;
     private int Quantity;
 
     public Component(String name) {

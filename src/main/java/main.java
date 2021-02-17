@@ -3,30 +3,19 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class main {
-    public void main() throws IOException {
+    public void main(String[] args) throws IOException {
 
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(System.in));
 
+        CommandProcessor commandProcessor = new CommandProcessor();
+
         while (true) {
             String command = reader.readLine();
 
-            switch (command) {
-                case "show current configuration":
-                    break;
+            String[] evaluated = CommandEvaluator.EvaluateCommand(command);
 
-                case "show groups":
-                    break;
-
-                case "show missing configuration":
-                    break;
-
-                case "build":
-                    break;
-
-                default:
-
-            }
+            commandProcessor.ProcessCommand(evaluated);
         }
     }
 }

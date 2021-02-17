@@ -30,7 +30,7 @@ public class CommandEvaluator {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(command);
         if (matcher.find()) {
-            List<String> groups = new ArrayList<String>();
+            List<String> groups = new ArrayList<>();
             for (int i = 0; i < matcher.groupCount() + 1; i++) {
                 groups.add(matcher.group(i));
             }

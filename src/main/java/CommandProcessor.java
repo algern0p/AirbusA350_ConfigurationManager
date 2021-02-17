@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class CommandProcessor {
-    private Map<String, ComponentGroup> groups;
+    private final Map<String, ComponentGroup> groups;
 
     public CommandProcessor() {
         this.groups = buildGroupMap();
@@ -110,15 +110,15 @@ public class CommandProcessor {
     // Stuff for Constructing Group List //////////////////////////////////////////////////////////
 
     private Map<String, ComponentGroup> buildGroupMap() {
-        Map<String, ComponentGroup> groups = new TreeMap<String, ComponentGroup>();
+        Map<String, ComponentGroup> groups = new TreeMap<>();
         List<ComponentGroup> groupsList = new ArrayList<>();
 
         groupsList.add(buildGroup("apu_engine_gear_pump", new String[]{"apu", "engine", "gear", "hydraulic_pump"}));
         groupsList.add(buildGroup("cabin", new String[]{"air_conditioning", "kitchen"}));
         groupsList.add(buildGroup("cargo_system", new String[]{"cargo_system"}));
         groupsList.add(buildGroup("door", new String[]{"bulk_cargo_door", "emergency_exit_door", "gear_door"}));
-        groupsList.add(buildGroup("flight_controls_01", new String[]{"drop_nose", "elevaor", "flap", "slat", "left_aileron", "right_aileron", "rudder", "spoiler"}));
-        groupsList.add(buildGroup("light", new String[]{"anti_collision_light", "cargo_compartment_light", "landing_ligth", "left_navigation_light", "logo_light", "right_navigation_light", "tail_navigation_light", "taxi_light"}));
+        groupsList.add(buildGroup("flight_controls_01", new String[]{"drop_nose", "elevator", "flap", "slat", "left_aileron", "right_aileron", "rudder", "spoiler"}));
+        groupsList.add(buildGroup("light", new String[]{"anti_collision_light", "cargo_compartment_light", "landing_light", "left_navigation_light", "logo_light", "right_navigation_light", "tail_navigation_light", "taxi_light"}));
         groupsList.add(buildGroup("management", new String[]{"cost_optimizer", "route_management"}));
         groupsList.add(buildGroup("seat", new String[]{"business_class_seat", "crew_seat", "economy_class_seat", "premium_economy_class_seat"}));
         groupsList.add(buildGroup("sensor_01", new String[]{"fuel_flow_sensor", "fuel_sensor", "ice_detector_probe"}));
