@@ -2,9 +2,11 @@ CommandEvaluator.java
  CommandEvaluator
 ComponentGroup.java
  ComponentGroup
+ComponentJSONEntry.java
+ ComponentJSONEntry
+Component.java
+ Component
 main.java
  main
 CommandProcessor.java
  CommandProcessor
-Component.java
- Component

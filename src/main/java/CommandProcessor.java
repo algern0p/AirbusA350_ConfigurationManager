@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.*;
 import com.google.gson.Gson;
 
@@ -75,7 +77,7 @@ public class CommandProcessor {
                 if (group.getName().equals(arguments[2])){
                     found = true;
                     group.getComponents().forEach((c) -> {
-                        System.out.println(String.format("%s | %s | %d", c.getComponentGroup(), c.getName(), c.getQuantity()));
+                        System.out.println(String.format("%s | %s | %d", c.getComponentGroup().getName(), c.getName(), c.getQuantity()));
                     });
                 }
             }
@@ -89,7 +91,7 @@ public class CommandProcessor {
 
 
         missing.forEach((c) -> {
-            System.out.println(String.format("%s | %s | %d", c.getComponentGroup(), c.getName(), c.getQuantity()));
+            System.out.println(String.format("%s | %s | %d", c.getComponentGroup().getName(), c.getName(), c.getQuantity()));
         });
     }
 
@@ -115,9 +117,19 @@ public class CommandProcessor {
             }
             System.out.println();
         } else {
-            Gson gson = new Gson();
+            List<ComponentJSONEntry> entries = new ArrayList<>();
 
-            System.out.println(gson.toJson(groups));
+            for (Component component: GetComponents()) {
+                entries.add(new ComponentJSONEntry(component.getName(), component.getQuantity()));
+            }
+
+            Gson gson = new Gson();
+            String configuration =gson.toJson(entries);
+            try (PrintWriter out = new PrintWriter("configuration.json")) {
+                out.println(configuration);
+            } catch (FileNotFoundException e){
+                System.out.println("Problems Writing File");
+            }
         }
 
 
@@ -140,6 +152,17 @@ public class CommandProcessor {
         });
 
         return missing;
+    }
+
+    private List<Component> GetComponents(){
+
+        List<Component> components = new ArrayList<>();
+
+        for (ComponentGroup group : groups) {
+            components.addAll(group.getComponents());
+        }
+
+        return components;
     }
 
     // Stuff for Constructing Group List //////////////////////////////////////////////////////////
@@ -174,7 +197,7 @@ public class CommandProcessor {
         ComponentGroup group = new ComponentGroup(name);
 
         for (String componentName : componentNames) {
-            group.getComponents().add(new Component(componentName, name));
+            group.getComponents().add(new Component(componentName, group));
         }
 
         return group;

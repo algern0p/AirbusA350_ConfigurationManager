@@ -1,11 +1,11 @@
 public class Component {
     private final String Name;
     private int Quantity;
-    private final String ComponentGroupName;
+    private final ComponentGroup _ComponentGroup;
 
-    public Component(String name, String componentGroup) {
+    public Component(String name, ComponentGroup componentGroup) {
         this.Name = name;
-        this.ComponentGroupName = componentGroup;
+        this._ComponentGroup = componentGroup;
         this.Quantity = 0;
     }
 
@@ -21,5 +21,5 @@ public class Component {
         Quantity = quantity;
     }
 
-    public String getComponentGroup(){ return ComponentGroupName; }
+    public ComponentGroup getComponentGroup(){ return _ComponentGroup; }
 }
