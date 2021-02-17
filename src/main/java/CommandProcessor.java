@@ -1,21 +1,17 @@
-import java.lang.reflect.Array;
-import java.util.List;
-
-import java.util.Map;
-import java.util.HashMap;
-import java.util.TreeMap;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class CommandProcessor {
     private Map<String, ComponentGroup> groups;
 
-    public CommandProcessor(){       
-        this.groups = buildGroupMap();   
+    public CommandProcessor() {
+        this.groups = buildGroupMap();
     }
-    
-    public void ProcessCommand(String[] command){
-        switch (command[0]){
+
+    public void ProcessCommand(String[] command) {
+        switch (command[0]) {
             case "show current configuration":
                 ShowCurrent();
                 break;
@@ -38,32 +34,32 @@ public class CommandProcessor {
 
     // Stuff for doing sth. with the GroupList aka executing the Commands /////////////////////////
 
-    private void ShowCurrent(){
+    private void ShowCurrent() {
         groups.forEach((k, v) -> {
             v.getComponents().forEach((c) -> {
-                if(c.getQuantity() == 0){                        
+                if (c.getQuantity() == 0) {
                     System.out.println(String.format("%s | %s | %d", v.getName(), c.getName(), c.getQuantity()));
                 }
             });
         });
     }
 
-    private void ShowGroups(){
-        
-        
+    private void ShowGroups() {
+
+
         groups.forEach((k, v) -> {
             System.out.println(k);
         });
     }
 
-    private void ShowComponents(String[] arguments){
-        
+    private void ShowComponents(String[] arguments) {
+
         // show Components Like
-        if(arguments[1].equals("like")){
+        if (arguments[1].equals("like")) {
             Map<String, String> out = new TreeMap<>();
             groups.forEach((k, v) -> {
                 v.getComponents().forEach((c) -> {
-                    if(c.getName().contains(arguments[2])){                        
+                    if (c.getName().contains(arguments[2])) {
                         out.put(c.getName(), String.format("%s | %%s | %d", v.getName(), c.getQuantity()));
                     }
                 });
@@ -73,7 +69,7 @@ public class CommandProcessor {
                 System.out.println(String.format(v, k));
             });
 
-        // show Components in Group
+            // show Components in Group
         } else {
             groups.get(arguments[2]).getComponents().forEach((c) -> {
                 System.out.println(String.format("%s | %s | %d", arguments[2], c.getName(), c.getQuantity()));
@@ -81,39 +77,39 @@ public class CommandProcessor {
         }
     }
 
-    private void ShowMissing(){
+    private void ShowMissing() {
         Map<String, String> out = new TreeMap<>();
-            groups.forEach((k, v) -> {
-                v.getComponents().forEach((c) -> {
-                    if(c.getQuantity() == 0){                        
-                        out.put(c.getName(), String.format("%s | %%s | %d", v.getName(), c.getQuantity()));
-                    }
-                });
+        groups.forEach((k, v) -> {
+            v.getComponents().forEach((c) -> {
+                if (c.getQuantity() == 0) {
+                    out.put(c.getName(), String.format("%s | %%s | %d", v.getName(), c.getQuantity()));
+                }
             });
+        });
 
-            out.forEach((k, v) -> {
-                System.out.println(String.format(v, k));
-            });
+        out.forEach((k, v) -> {
+            System.out.println(String.format(v, k));
+        });
     }
 
-    private void SetQuantity(String[] arguments){
-            groups.forEach((k, v) -> {
-                v.getComponents().forEach((c) -> {
-                    if(c.getName().equals(arguments[1])){                        
-                        c.setQuantity(Integer.parseInt(arguments[2]));
-                    }
-                });
+    private void SetQuantity(String[] arguments) {
+        groups.forEach((k, v) -> {
+            v.getComponents().forEach((c) -> {
+                if (c.getName().equals(arguments[1])) {
+                    c.setQuantity(Integer.parseInt(arguments[2]));
+                }
             });
-            
+        });
+
     }
 
-    private void Build(){
+    private void Build() {
 
     }
 
     // Stuff for Constructing Group List //////////////////////////////////////////////////////////
 
-    private Map<String, ComponentGroup> buildGroupMap(){
+    private Map<String, ComponentGroup> buildGroupMap() {
         Map<String, ComponentGroup> groups = new TreeMap<String, ComponentGroup>();
         List<ComponentGroup> groupsList = new ArrayList<>();
 
@@ -130,7 +126,7 @@ public class CommandProcessor {
         groupsList.add(buildGroup("sensor_03", new String[]{"airflow_sensor", "pilot_tube", "radar_altimeter", "tcas", "turbulent_airflow_sensor"}));
         groupsList.add(buildGroup("sensor_04", new String[]{"camera", "gps", "radar", "satcom", "vhf"}));
         groupsList.add(buildGroup("tank_bottle", new String[]{"apu_oil_tank", "battery", "deicing_system", "engine_oil_tank", "fuel_tank", "nitrogen_bottle", "oxygen_bottle", "portable_watertank", "wastewater_tank"}));
-        
+
         for (ComponentGroup componentGroup : groupsList) {
             groups.put(componentGroup.getName(), componentGroup);
         }
@@ -139,7 +135,7 @@ public class CommandProcessor {
 
     }
 
-    private ComponentGroup buildGroup(String name, String[] componentNames){
+    private ComponentGroup buildGroup(String name, String[] componentNames) {
         ComponentGroup group = new ComponentGroup(name);
 
         for (String componentName : componentNames) {

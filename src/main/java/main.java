@@ -1,24 +1,31 @@
 import java.io.BufferedReader;
-import java.io.Console;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class main {
-    public void main(){
+    public void main() throws IOException {
 
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(System.in));
 
-        while(true){
+        while (true) {
+            String command = reader.readLine();
 
-            System.out.print("> ");
-                        
-            try{
-                String command = reader.readLine();
-                CommandEvaluator.EvaluateCommand(command);
-            }
-            catch (Exception exception){
-                break;
+            switch (command) {
+                case "show current configuration":
+                    break;
+
+                case "show groups":
+                    break;
+
+                case "show missing configuration":
+                    break;
+
+                case "build":
+                    break;
+
+                default:
+
             }
         }
     }

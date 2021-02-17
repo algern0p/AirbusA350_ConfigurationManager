@@ -2,7 +2,7 @@ public class Component {
     private String Name;
     private int Quantity;
 
-    public  Component(String name){
+    public Component(String name) {
         this.Name = name;
         this.Quantity = 0;
     }
