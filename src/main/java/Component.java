@@ -4,6 +4,7 @@ public class Component {
 
     public  Component(String name){
         this.Name = name;
+        this.Quantity = 0;
     }
 
     public String getName() {
